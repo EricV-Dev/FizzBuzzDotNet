@@ -17,33 +17,38 @@ namespace FizzBuzzDotNet.Controllers
             public string user { get; set; }
             public string ogUserSend { get; set; }
             public string password { get; set; }
-            public string admin { get; set; }
-            public string passChanged { get; set; }
-            public string userChanged { get; set; }
+            public bool admin { get; set; }
+            public bool passChanged { get; set; }
+            public bool userChanged { get; set; }
         }
 
-        [HttpPost, HttpGet]
+        [HttpPost]
         public HttpResponseMessage updateUser(updatedUserArgs args)
         {
             var entities = new UsersEntities();
 
-            if (args.passChanged == "true")
+            if (args.passChanged == true)
             {
                 var hash = Helpers.SecurePasswordHasher.Hash(args.password);
 
                 args.password = hash;
-            }           
+            }        
 
-            var duplicate = entities.Users.SingleOrDefault(x => x.username == args.user);
+            var duplicate = entities.Users.SingleOrDefault(x => x.UserName == args.user);
 
-            if (duplicate == null || args.userChanged == "false")
+            if (duplicate == null || args.userChanged == false)
             {
 
-                User foundUser = entities.Users.First(x => x.username == args.ogUserSend);
+                User foundUser = entities.Users.First(x => x.UserName == args.ogUserSend);
 
-                foundUser.username = args.user;
-                foundUser.password = args.password;
-                foundUser.admin = args.admin;
+                if (args.password == null)
+                {
+                    args.password = foundUser.Password;
+                }
+
+                foundUser.UserName = args.user;
+                foundUser.Password = args.password;
+                foundUser.IsAdmin = args.admin;
 
                 entities.SaveChanges();
 

@@ -14,17 +14,17 @@ namespace FizzBuzzDotNet.Controllers
     {
         public class loginUserArgs
         {
-            public string user { get; set; }
-            public string password { get; set; }
+            public string User { get; set; }
+            public string Password { get; set; }
         }
 
-        public class isAdmin
+        public class isAdminLocal
         {
-            public string response { get; set; }
+            public string Response { get; set; }
             public bool admin { get; set; }
         }
 
-        [HttpPost, HttpGet]
+        [HttpPost]
         public HttpResponseMessage loginUser(loginUserArgs args)
 
         {
@@ -32,7 +32,7 @@ namespace FizzBuzzDotNet.Controllers
         var entities = new UsersEntities();
 
             var foundUser = entities.Users
-                   .Where(x => x.username == args.user)
+                   .Where(x => x.UserName == args.User)
                    .FirstOrDefault();
 
             if (foundUser == null)
@@ -40,24 +40,24 @@ namespace FizzBuzzDotNet.Controllers
                 return Request.CreateResponse(HttpStatusCode.Unauthorized, "Not Valid User");
             }
 
-            var result = Helpers.SecurePasswordHasher.Verify(args.password, foundUser.password);
+            var result = Helpers.SecurePasswordHasher.Verify(args.Password, foundUser.Password);
 
-            if (foundUser != null && result == true)
+            if (foundUser != null && result)
             {
 
-                if (foundUser.admin == "true")
+                if (foundUser.IsAdmin == true)
                 {
 
-                    var isAdmin = new isAdmin
+                    var isAdmin = new isAdminLocal
                     {
-                        response = "Access Granted / Admin",
+                        Response = "Access Granted / Admin",
                         admin = true
                     };
 
                     return Request.CreateResponse(HttpStatusCode.OK, isAdmin);
                 }
 
-                if (foundUser.admin == "false")
+                if (foundUser.IsAdmin == false)
                 {
                     
                     return Request.CreateResponse(HttpStatusCode.OK, "Valid User");

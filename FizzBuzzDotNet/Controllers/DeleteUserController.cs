@@ -12,8 +12,8 @@ namespace FizzBuzzDotNet.Controllers
     {
         public class deleteUserArgs
         {
-            public string delete { get; set; }
-            public string user { get; set; }
+            public string Delete { get; set; }
+            public string User { get; set; }
         }
 
         [HttpPost]
@@ -22,7 +22,7 @@ namespace FizzBuzzDotNet.Controllers
             
             var entities = new UsersEntities();
 
-            entities.Users.RemoveRange(entities.Users.Where(x => x.username == args.user));
+            entities.Users.RemoveRange(entities.Users.Where(x => x.UserName == args.User));
             entities.SaveChanges();
             
         }

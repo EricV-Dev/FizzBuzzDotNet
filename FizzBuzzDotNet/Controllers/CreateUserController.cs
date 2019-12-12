@@ -15,32 +15,32 @@ namespace FizzBuzzDotNet.Controllers
     {
         public class newUserArgs
         {
-            public string user { get; set; }
-            public string password { get; set; }
-            public string admin { get; set; }
+            public string User { get; set; }
+            public string Password { get; set; }
+            public bool Admin { get; set; }
         }
 
         public HttpResponseMessage CreateUser(newUserArgs args)
         {
-            if (args.admin == null)
+            if (args.Admin == false) //check here i changed this
             {
-                args.admin = "false";
+                args.Admin = false;
             }
                         
             var entities = new UsersEntities();
 
-            var duplicate = entities.Users.SingleOrDefault(x => x.username == args.user);
+            var duplicate = entities.Users.SingleOrDefault(x => x.UserName == args.User);
 
             if (duplicate == null)
                 {
 
-                var hash = Helpers.SecurePasswordHasher.Hash(args.password);
+                var hash = Helpers.SecurePasswordHasher.Hash(args.Password);
 
                     var newUser = new User
                     {
-                    username = args.user,
-                    password = hash,
-                    admin = args.admin
+                    UserName = args.User,
+                    Password = hash,
+                    IsAdmin = args.Admin
                     };
 
                     entities.Users.Add(newUser);
