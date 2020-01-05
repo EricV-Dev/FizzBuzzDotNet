@@ -29,7 +29,7 @@ namespace FizzBuzzDotNet.Controllers
 
         {
 
-        var entities = new UsersEntities();
+        var entities = new UsersEntities2();
 
             var foundUser = entities.Users
                    .Where(x => x.UserName == args.User)

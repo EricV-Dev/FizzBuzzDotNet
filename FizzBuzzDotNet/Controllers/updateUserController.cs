@@ -25,7 +25,7 @@ namespace FizzBuzzDotNet.Controllers
         [HttpPost]
         public HttpResponseMessage updateUser(updatedUserArgs args)
         {
-            var entities = new UsersEntities();
+            var entities = new UsersEntities2();
 
             if (args.passChanged == true)
             {

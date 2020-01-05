@@ -12,7 +12,7 @@ namespace FizzBuzzDotNet.Controllers
     {
         public IEnumerable<User> Get()
         {
-            using (UsersEntities entities = new UsersEntities())
+            using (UsersEntities2 entities = new UsersEntities2())
             {
                 return entities.Users.ToList();
             }

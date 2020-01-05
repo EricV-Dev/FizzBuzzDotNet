@@ -8,6 +8,7 @@ using UserDataAccess;
 
 
 
+
 namespace FizzBuzzDotNet.Controllers
 {
 
@@ -22,12 +23,13 @@ namespace FizzBuzzDotNet.Controllers
 
         public HttpResponseMessage CreateUser(newUserArgs args)
         {
-            if (args.Admin == false) //check here i changed this
+            if (args.Admin == false)
             {
                 args.Admin = false;
             }
                         
-            var entities = new UsersEntities();
+            var entities = new UsersEntities2(); //userentititues 2 is the neame of the other databause azure
+
 
             var duplicate = entities.Users.SingleOrDefault(x => x.UserName == args.User);
 
