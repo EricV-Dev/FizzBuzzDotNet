@@ -10,14 +10,13 @@ namespace FizzBuzzDotNet.Controllers
 {
     public class DisplayUserController : ApiController
     {
-
-        public IEnumerable<User> Get()
+        [HttpGet]
+        public string Hello()
         {
-            using (UsersEntities entities = new UsersEntities())
-            {
-                return entities.Users.ToList();
-            }
+            return "Hello World";
 
         }
     }
 }
+
+
