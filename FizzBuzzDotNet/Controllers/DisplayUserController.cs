@@ -10,9 +10,10 @@ namespace FizzBuzzDotNet.Controllers
 {
     public class DisplayUserController : ApiController
     {
+
         public IEnumerable<User> Get()
         {
-            using (UsersEntities2 entities = new UsersEntities2())
+            using (UsersEntities entities = new UsersEntities())
             {
                 return entities.Users.ToList();
             }
